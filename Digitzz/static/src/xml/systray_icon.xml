@@ -1,0 +1,117 @@
+<templates>
+    <!-- IconSystrayDropdown template -->
+    <t t-name="IconSystrayDropdown">
+        <div class="SystrayMenuContainer">
+            <div class="o_MessagingMenu dropdown">
+                <div class="o-dropdown dropdown o_debug_manager o-dropdown--no-caret">
+                    <a class="o_MessagingMenu_toggler dropdown-toggle o-no-caret o-dropdown--narrow" href="#"
+                       title="Systray Dropdown" role="button" aria-haspopup="true" aria-expanded="">
+                        <i id="create_so" class="fa fa-external-link-square"/>
+                    </a>
+                </div>
+                <div id="systray_notif" class="o_MessagingMenu_dropdownMenu o-dropdown-menu" style="padding-top: 0%;">
+                    <div class="button-container">
+                        <a class="o-dropdown-button1 custom-button-left" href="#" title="Show Dropdown">Record</a>
+                        <a class="o-dropdown-button2 custom-button-right" href="#" title="Hide Dropdown">Task</a>
+                    </div>
+                    <div class="container" style="padding-top: 2%;">
+                        <div class="systray_notification"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- SystrayDetails template -->
+    <t t-name="SystrayDetails">
+    <style>
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        tr {
+        border-bottom: 1px solid #ddd;
+        }
+
+        td {
+        border-right: 1px solid #ddd;
+        padding: 4px;
+        }
+
+        td:last-child {
+        border-right: none; /* Remove the border for the last column */
+        }
+
+        /* Highlight the 'Status' table header when 'fa fa-play' status is found */
+        .table_css th.highlight-header {
+        background-color: yellow; /* Set background color to yellow for the 'Status' header cell */
+        }
+
+        /* Set background color to white for the 'Status' header cell when 'working' */
+        .table_css th.highlight-header-working {
+        background-color: white;
+        }
+    </style>
+
+    <t t-if="worksheetData">
+        <div class="systray_user_table" t-foreach="worksheetData" t-as="user">
+            <t t-if="user.worksheet_data and user.worksheet_data.length &gt; 0">
+                <div class="content">
+                    <b style="font-size: 15px;">
+                        <t t-esc="user.user_name"/>
+                    </b>
+                    <br></br>
+                    <table class="table_css">
+                        <thead>
+                            <tr>
+                                <th class="highlight-header">Name</th>
+                                <th class="highlight-header">Project</th>
+                                <th class="highlight-header">Task</th>
+                                <th class="highlight-header">Time</th>
+                                <th class="highlight-header-working">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="user.worksheet_data" t-as="worksheet">
+                                <tr t-foreach="worksheet.odmsr_ids" t-as="es">
+                                    <td>
+                                        <t t-esc="es.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="es.proj_id"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="es.task_id"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="es.current_time"/>
+                                    </td>
+                                    <td>
+                                        <!-- this is using tick and play-pause mark shown in iconsystray table-->
+                                        <t t-if="es.demotest == 'working'">
+                                            <i class="fa fa-play" title="Working"/>
+                                        </t>
+                                        <t t-if="es.demotest == 'onhold'">
+                                            <i class="fa fa-pause" title="Onhold"/>
+                                        </t>
+                                        <t t-if="es.demotest == 'done'">
+                                            <i class="fa fa-check" title="Done"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="content">
+                    <p>  </p>
+                </div>
+            </t>
+        </div>
+    </t>
+
+
+</templates>

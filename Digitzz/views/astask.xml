@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1stclssasktree-->
+    <record id="astask_tree" model="ir.ui.view">
+        <field name="name">astask_form</field>
+        <field name="model">astask.astask</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="proj_id"/>
+                <field name="task_id"/>
+                <field name="demotest"/>
+                <field name="us_name"/>
+            </tree>
+        </field>
+    </record>
+    <!--1stclassaskform-->
+    <record id="astask_form" model="ir.ui.view">
+        <field name="name">astask_form</field>
+        <field name="model">astask.astask</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="demotest" widget="statusbar" options="{'clickable': 1}" position="after"/>
+                <sheet>
+
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="us_name"/>
+                        </group>
+                        <group>
+                            <field name="task_id"/>
+                            <field name="proj_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!--<mytask...........................................................................></mytask...........................................................................>-->
+    <!--2nd&#45;&#45;mytasktree-->
+    <record id="mytask_tree" model="ir.ui.view">
+        <field name="name">mytask_tree</field>
+        <field name="model">astask.astask</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="name"/>
+                <field name="proj_id"/>
+                <field name="task_id"/>
+                <field name="demotest"/>
+                <field name="us_name"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <!--2ndclassmytaskform-->
+    <record id="mytask_form" model="ir.ui.view">
+        <field name="name">mytask_form</field>
+        <field name="model">astask.astask</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <field name="demotest" widget="statusbar"/>
+                <sheet>
+
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="us_name"/>
+                        </group>
+                        <group>
+                            <field name="task_id"/>
+                            <field name="proj_id"/>
+                        </group>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="astask_action" model="ir.actions.act_window">
+        <field name="name">AssignTASk</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">astask.astask</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--2ndclassmytaskaction-->
+    <record id="mytask_action" model="ir.actions.act_window">
+        <field name="name">Mytask</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">astask.astask</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'create':False, 'edit':False,'delete':0 }</field>
+        <field name="domain">[('us_name', '=', uid)]</field>
+    </record>
+
+    <!--1stmenu-->
+    <menuitem name="Assign Task"
+              id="asstask_menu2"
+              action="astask_action"
+              parent="Digitzz4_menu2"/>
+    <!--          groups="digitzz_admin"/>-->
+    <!--this "Allworksheet" menu is hidden from other users only seen  (digitz_admin) and (michel admin)-->
+
+
+    <!--2ndmenu-->
+    <menuitem name="My Task"
+              id="mytask_menu2"
+              action="mytask_action"
+              parent="Digitzz4_menu2"/>
+
+</odoo>
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--1&#45;&#45; form view for the  1st class wizard (wiz.wiz)&ndash;&gt;-->
+    <record model="ir.ui.view" id="view_wiz_wiz_form">
+        <field name="name">wiz list</field>
+        <field name="model">wiz.wiz</field>
+        <field name="arch" type="xml">
+            <form create='0' delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <!--                            nolabe(hide fieldname ,font;weihgtbold=bold the font-->
+                            <field name="date" nolabel="1" style="font-weight: bold;"/>
+
+                        </group>
+                        <group>
+                            <field name="user_id" nolabel="1"
+                                   style="margin-left:90mm; padding:1px; font-weight: bold; "/>
+                        </group>
+
+                    </group>
+                    <!--<2&#45;&#45;button for [&#45;&#45;CHECKOUT&#45;&#45;] this button click time all records in to time sheet              &ndash;&gt;-->
+
+                    <!--                    <button name="print_Timesheet" string="Check Out" type="object" class="btn-danger"/>-->
+                    <!--
+                             chtgptdisappearbutton press time button hide-->
+                    <field name="state" invisible="1"/>
+                    <button name="print_timesheet" string="Check Out" type="object" class="btn-danger" state="default"
+                            attrs="{'invisible': [('state', '=', 'done')]}"/>
+
+
+                    <!--                    <!-one2meny adding odmsr is one2meny field in (wiz.wiz)              -->
+                    <field name="odmsr_ids" attrs="{'readonly': [('state', '=', 'done')]}">
+                        <tree editable="bottom" delete="0">
+                            <!--   these fields are second clss[Task] (Task.connect) fields   one2meny call to task.connect                         -->
+                            <field name="name"/>
+                            <field name="proj_id"/>
+                            <field name="task_id"/>
+                            <field name="demotest"/>
+                            <field name="current_time"/>
+                            <field name="usname" invisible="1"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!--set a SERVER ACTION    -->
+    <record model="ir.actions.server" id="digitzz_action_server">
+        <field name="name">Worksheet server action</field>
+        <field name="model_id" ref="model_wiz_wiz"/>
+        <field name="state">code</field>
+        <field name="code">
+            action=env['wiz.wiz'].work()
+        </field>
+
+    </record>
+
+    <!-- ACTION view for the  1st class wizard (wiz.wiz)-->
+
+    <record model="ir.actions.act_window" id="wizardsed14_actions">
+        <field name="name">wizard</field>
+        <field name="res_model">wiz.wiz</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_id" ref="view_wiz_wiz_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+
+    </record>
+
+
+</odoo>

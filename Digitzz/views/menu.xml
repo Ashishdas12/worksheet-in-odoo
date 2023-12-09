@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem name="Worksheet"
+                  id="Digitzz4_menu2"
+                  action="digitzz_action_server"/>
+
+        <menuitem name="All Worksheet"
+                  id="wizardnewee_menu2"
+                  action="mod1_action"
+                  parent="Digitzz4_menu2"/>
+                  groups="digitz_admin"/>
+<!--this "Allworksheet" menu is hidden from other users only seen  (digitz_admin) and (michel admin)-->
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+
+
+
+        <report
+                id="report_purchase_card"
+                model="wiz.wiz"
+                string="purchase Report"
+                report_type="qweb-pdf"
+                name="Digitzz.report_purchase_content"
+                file="Digitzz.report_purchase_card"
+        />
+    </data>
+</odoo>
